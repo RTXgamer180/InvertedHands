@@ -91,7 +91,7 @@ function loop(){
    const pts=[];
    for(let i=0;i<2;i++){
     const hand=result.landmarks[i];
-    for(const idx of [4,8])pts.push({x:(1-hand[idx].x)*w,y:(1-hand[idx].y)*h});
+    for(const idx of [4,8])pts.push({x:(1-hand[idx].x)*w,y:hand[idx].y*h});
    }
    const corners=orderCorners(pts);
    const poly=corners.map(p=>`${(p.x/w*100).toFixed(2)}% ${(p.y/h*100).toFixed(2)}%`).join(",");
@@ -109,7 +109,7 @@ function loop(){
    status.textContent="Waiting for two hands…";
   }
   if(result.landmarks)result.landmarks.forEach(hand=>[4,8].forEach(idx=>{
-   const p=hand[idx],x=(1-p.x)*w,y=(1-p.y)*h;
+   const p=hand[idx],x=(1-p.x)*w,y=p.y*h;
    ctx.fillStyle="#ffdf68";ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fill();
   }));
  }
